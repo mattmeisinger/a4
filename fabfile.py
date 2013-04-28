@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import boto
 import boto.emr
+import boto.s3
 from boto.emr.step import StreamingStep
 #from boto.emr.bootstrap_action import BootstrapAction
 import time
@@ -8,6 +9,11 @@ import time
 # set your aws keys and S3 bucket, e.g. from environment or .boto
 S3_BUCKET='enron-matt'
 NUM_INSTANCES=1
+
+# def upload_python_scripts():
+# 	conn = boto.connect_s3()
+# 	bucket = conn.get_bucket(S3_BUCKET)
+# 	messages_mapper_key = get_key('')
 
 def create_emr():
 	folders = ['s3n://mmeisinger-storage/enron-input/allen-p/straw',
@@ -19,7 +25,7 @@ def create_emr():
 		mapper='s3n://' + S3_BUCKET + '/py/messages-mapper.py',
 		#mapper='s3n://elasticmapreduce/samples/wordcount/wordSplitter.py',
 		#cache_files = ["s3n://" + S3_BUCKET + "/boto.mod#boto.mod"],
-		reducer='aggregate',
+		reducer='s3n://' + S3_BUCKET + '/py/messages-reducer.py',
 		input=folders,
 		output='s3n://' + S3_BUCKET + '/output/step1')
 
