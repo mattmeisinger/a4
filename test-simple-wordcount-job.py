@@ -9,18 +9,21 @@ import time
 S3_BUCKET='mmeisinger-storage'
 NUM_INSTANCES=1
 
+folders = ['s3n://' + S3_BUCKET + '/enron-input/allen-p/straw',
+           's3n://' + S3_BUCKET + '/enron-input/allen-p/contacts']
+
 conn = boto.connect_emr()
 #bootstrap_step = BootstrapAction("download.tst", "s3://elasticmapreduce/bootstrap-actions/download.sh", None)
 step1 = StreamingStep(
   name='Wordcount',
   mapper='s3n://elasticmapreduce/samples/wordcount/wordSplitter.py',
-  cache_files = ["s3n://" + S3_BUCKET + "/boto.mod#boto.mod"],
+  #cache_files = ["s3n://" + S3_BUCKET + "/boto.mod#boto.mod"],
   reducer='aggregate',
-  input='s3n://elasticmapreduce/samples/wordcount/input',
-  output='s3n://' + S3_BUCKET + '/output/wordcount_output')
+  input=folders,
+  output='s3n://' + S3_BUCKET + '/output/custom_wordcount_output_enron')
  
 jobid = conn.run_jobflow(
-    name="testbootstrap",
+    name="Wordcount Enron Custom",
     log_uri="s3://" + S3_BUCKET + "/logs",
     steps = [step1],
     #bootstrap_actions=[bootstrap_step],
