@@ -43,3 +43,5 @@ for line in sys.stdin:
 # Check to see if there is a valid from user and message ID.  Only output data if there is.
 if msg_id and msg_from and msg_to:
 	print msg_id + '\t' + msg_from + '|' + ','.join(msg_to)
+else:
+	print ""
