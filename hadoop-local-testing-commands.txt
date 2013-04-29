@@ -1,0 +1,3 @@
+
+Run a single message through Hadoop, testing the mapper and reducer:
+$ bin/hadoop jar hadoop-streaming-1.1.2.jar -input "../354" -mapper "python ../projects/a4/messages-mapper.py" -reducer "python ../projects/a4/messages-reducer.py" -output "../projects/a4/hadoop-output"
