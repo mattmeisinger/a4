@@ -13,10 +13,15 @@ for line in sys.stdin:
     line = line.strip()
 
     # parse the input we got from mapper.py
-    key, val = line.split('\t', 1)
+    # only process lines that include a tab
+    if line.find('\t') > -1:
 
-    if key == current_key:
-    	continue
-    else:
-    	current_key = key
-    	print '%s\t%s' % (key, value)
+    	# get key and value from line, from first tab
+	    key, val = line.split('\t', 1)
+
+	    # only return key if it isn't a duplicate of the one before it
+	    if key == current_key:
+	    	continue
+	    else:
+	    	current_key = key
+	    	print '%s\t%s' % (key, val)
