@@ -1,60 +1,63 @@
 #!/usr/bin/env python
 import boto
 import boto.emr
-import boto.s3
 from boto.emr.step import StreamingStep
-#from boto.emr.bootstrap_action import BootstrapAction
 import time
+import os
+import s3
 
-# set your aws keys and S3 bucket, e.g. from environment or .boto
+# Working S3 bucket where all intermediary files and output files will go
 S3_BUCKET='enron-matt'
+
+# Bucket where the publicly-accessible source files are
+SOURCE_S3_BUCKET='mmeisinger-storage'
+SOURCE_S3_FOLDER='enron-input'
 NUM_INSTANCES=1
 
-# def upload_python_scripts():
-# 	conn = boto.connect_s3()
-# 	bucket = conn.get_bucket(S3_BUCKET)
-# 	messages_mapper_key = get_key('')
+# Folder where the output for step one should be placed, in the S3_BUCKET
+OUTPUT_STEP1_FOLDER = 'output/step1'
+
+# Folder where the mapper and reducer python source files can be found in the S3_BUCKET
+PYTHON_MAP_REDUCE_SOURCE_FOLDER = 'py/'
+
+# Filename of the step 1 messages mapper source file
+messages_mapper = 'messages-mapper.py'
+messages_reducer = 'messages-reducer.py'
+
+
+def upload_scripts():
+	""" Upload python Mappers and Reducers to S3_BUCKET """
+	s3.upload_to_key(bucket_name=S3_BUCKET,file_name=messages_mapper,key_name='/'+PYTHON_MAP_REDUCE_SOURCE_FOLDER+messages_mapper)
+	s3.upload_to_key(bucket_name=S3_BUCKET,file_name=messages_reducer,key_name='/'+PYTHON_MAP_REDUCE_SOURCE_FOLDER+messages_reducer)
+
 
 def create_emr():
-	folders = ['s3n://mmeisinger-storage/enron-input/allen-p/straw',
-				's3n://mmeisinger-storage/enron-input/allen-p/contacts']
-	conn = boto.connect_emr()
-	#bootstrap_step = BootstrapAction("download.tst", "s3://elasticmapreduce/bootstrap-actions/download.sh", None)
-	step1 = StreamingStep(
-		name='Get messages (key is message id)',
-		mapper='s3n://' + S3_BUCKET + '/py/messages-mapper.py',
-		#mapper='s3n://elasticmapreduce/samples/wordcount/wordSplitter.py',
-		#cache_files = ["s3n://" + S3_BUCKET + "/boto.mod#boto.mod"],
-		reducer='s3n://' + S3_BUCKET + '/py/messages-reducer.py',
-		input=folders,
-		output='s3n://' + S3_BUCKET + '/output/step1')
+	""" Creates an Elastic Map Reduce job that uses a custom python mapper and reducer """
+	# Delete any previously existing output, since EMR requires an empty output directory
+	s3.delete_folder(S3_BUCKET, OUTPUT_STEP1_FOLDER)
 
-	step2 = StreamingStep(
-		name='Get recipients',
-		mapper='s3n://' + S3_BUCKET + '/py/messages-mapper.py',
-		#mapper='s3n://elasticmapreduce/samples/wordcount/wordSplitter.py',
-		#cache_files = ["s3n://" + S3_BUCKET + "/boto.mod#boto.mod"],
-		reducer='aggregate',
+	# Get a full list of the folders that the source exists in. Neither Hadoop nor EMR have 
+	# the capability of specifying that a source directory recursively
+	folders = s3.get_folders(SOURCE_S3_BUCKET,SOURCE_S3_FOLDER)
+
+	conn = boto.connect_emr()
+
+	# Create the first step, to scan all the messages and just pull out the message id, sender, and recipients (both 'To' and 'Cc' recipients)
+	step1 = StreamingStep(
+		name='STEP 1: Get messages, and deduplicate (key is message id)',
+		mapper='s3n://' + S3_BUCKET + '/' + PYTHON_MAP_REDUCE_SOURCE_FOLDER + messages_mapper,
+		reducer='s3n://' + S3_BUCKET + '/' + PYTHON_MAP_REDUCE_SOURCE_FOLDER + messages_reducer,
 		input=folders,
-		output='s3n://' + S3_BUCKET + '/output/step1')
-	 
+		output='s3n://' + S3_BUCKET + '/' + OUTPUT_STEP1_FOLDER)
+
+	# Spin up job to run all steps
 	jobid = conn.run_jobflow(
 		name="Enron Mail Analysis",
 		log_uri="s3://" + S3_BUCKET + "/logs",
 		steps = [step1],
-		#bootstrap_actions=[bootstrap_step],
 		num_instances=NUM_INSTANCES)
 
+	# Return the job id to the user.  At the point the servers will take some time to spin up and process the job.
 	state = conn.describe_jobflow(jobid).state
 	print "job state = ", state
 	print "job id = ", jobid
-	# while state != u'COMPLETED':
-	#     print time.localtime()
-	#     time.sleep(30)
-	#     state = conn.describe_jobflow(jobid).state
-	#     print "job state = ", state
-	#     print "job id = ", jobid
-	 
-	# print "final output can be found in s3://" + S3_BUCKET + "/output" + TIMESTAMP
-	# print "try: $ s3cmd sync s3://" + S3_BUCKET + "/output" + TIMESTAMP + " ."
-
