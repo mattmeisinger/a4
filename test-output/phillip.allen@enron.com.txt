@@ -1,0 +1,9 @@
+phillip.allen@enron.com	Outbound: tim.heizenrader@enron.com
+phillip.allen@enron.com	Outbound: tim.belden@enron.com
+phillip.allen@enron.com	Outbound: jane.tholt@enron.com
+phillip.allen@enron.com	Outbound: mike.grigsby@enron.com
+phillip.allen@enron.com	Outbound: keith.holst@enron.com
+phillip.allen@enron.com	Outbound: frank.ermis@enron.com
+phillip.allen@enron.com	Outbound: jay.reitmeyer@enron.com
+phillip.allen@enron.com	Outbound: tori.kuykendall@enron.com
+phillip.allen@enron.com	Outbound: matthew.lenhart@enron.com

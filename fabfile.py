@@ -6,6 +6,15 @@ import time
 import os
 import s3
 
+
+# NOTE: This file was created with the purpose of running streaming Python hadoop jobs.  Unfortunately
+# the streaming API does not support customizing the names of the files.  So this needs to be adapted
+# to deploy the Java JAR file to S3 instead of the Python scripts.
+
+# Look at the test-hadoop-local.sh file first...as that is what I was working on last.
+
+
+
 # Working S3 bucket where all intermediary files and output files will go
 S3_BUCKET='enron-matt'
 

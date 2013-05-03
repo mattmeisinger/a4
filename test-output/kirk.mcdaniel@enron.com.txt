@@ -1,0 +1,12 @@
+kirk.mcdaniel@enron.com	Outbound: k..allen@enron.com
+kirk.mcdaniel@enron.com	Outbound: tim.o'rourke@enron.com
+kirk.mcdaniel@enron.com	Outbound: yevgeny.frolov@enron.com
+kirk.mcdaniel@enron.com	Outbound: michelle.cash@enron.com
+kirk.mcdaniel@enron.com	Outbound: tim.o'rourke@enron.com
+kirk.mcdaniel@enron.com	Outbound: yevgeny.frolov@enron.com
+kirk.mcdaniel@enron.com	Outbound: michelle.cash@enron.com
+kirk.mcdaniel@enron.com	Outbound: k..allen@enron.com
+kirk.mcdaniel@enron.com	Outbound: tim.o'rourke@enron.com
+kirk.mcdaniel@enron.com	Outbound: yevgeny.frolov@enron.com
+kirk.mcdaniel@enron.com	Outbound: mery.l.brown@accenture.com; donald.l.barnhart@accenture.com;
+kirk.mcdaniel@enron.com	Outbound: jonathan.o.stahl@accenture.com

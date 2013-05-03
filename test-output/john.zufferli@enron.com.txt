@@ -1,0 +1,3 @@
+john.zufferli@enron.com	Inbound: james.bruce@enron.com
+john.zufferli@enron.com	Inbound: james.bruce@enron.com
+john.zufferli@enron.com	Inbound: kathryn.sheppard@enron.com

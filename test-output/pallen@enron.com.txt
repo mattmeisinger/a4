@@ -1,0 +1,14 @@
+pallen@enron.com	Inbound: webmaster@earnings.com
+pallen@enron.com	Inbound: iwon@info.iwon.com
+pallen@enron.com	Inbound: delivers@amazon.com
+pallen@enron.com	Inbound: monica.l.brown@accenture.com
+pallen@enron.com	Inbound: msimpkins@winstead.com
+pallen@enron.com	Inbound: msimpkins@winstead.com
+pallen@enron.com	Inbound: enron_update@concureworkplace.com
+pallen@enron.com	Inbound: subscriptions@intelligencepress.com
+pallen@enron.com	Inbound: subscriptions@intelligencepress.com
+pallen@enron.com	Inbound: exclusive_offers@sportsline.com
+pallen@enron.com	Inbound: subscriptions@intelligencepress.com
+pallen@enron.com	Inbound: anchordesk_daily@anchordesk.zdlists.com
+pallen@enron.com	Inbound: mery.l.brown@accenture.com
+pallen@enron.com	Inbound: webmaster@earnings.com

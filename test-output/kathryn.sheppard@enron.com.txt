@@ -1,0 +1,8 @@
+kathryn.sheppard@enron.com	Outbound: mike.grigsby@enron.com
+kathryn.sheppard@enron.com	Outbound: chris.gaskill@enron.com
+kathryn.sheppard@enron.com	Outbound: david.ryan@enron.com
+kathryn.sheppard@enron.com	Outbound: cooper.richey@enron.com
+kathryn.sheppard@enron.com	Outbound: john.lavorato@enron.com
+kathryn.sheppard@enron.com	Outbound: john.zufferli@enron.com
+kathryn.sheppard@enron.com	Outbound: k..allen@enron.com
+kathryn.sheppard@enron.com	Outbound: tim.heizenrader@enron.com
