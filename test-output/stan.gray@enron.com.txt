@@ -1,2 +1,0 @@
-stan.gray@enron.com	Inbound: james.bruce@enron.com
-stan.gray@enron.com	Inbound: james.bruce@enron.com

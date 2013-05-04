@@ -1,2 +1,0 @@
-david.parquet@enron.com	Inbound: james.bruce@enron.com
-david.parquet@enron.com	Inbound: james.bruce@enron.com

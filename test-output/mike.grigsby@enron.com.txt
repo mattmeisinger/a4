@@ -1,4 +1,0 @@
-mike.grigsby@enron.com	Inbound: kathryn.sheppard@enron.com
-mike.grigsby@enron.com	Inbound: james.bruce@enron.com
-mike.grigsby@enron.com	Inbound: phillip.allen@enron.com
-mike.grigsby@enron.com	Inbound: james.bruce@enron.com
